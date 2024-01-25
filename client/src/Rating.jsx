@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star } from 'lucide-react';
+import Dropdown from './Dropdown'; // Assuming the path to the Dropdown component file
 import './Rating.css';
 
 const Rating = ({ initialRating, onChange }) => {
@@ -7,7 +8,25 @@ const Rating = ({ initialRating, onChange }) => {
   const [count, setCount] = useState(0);
   const [movieTitle, setMovieTitle] = useState('');
   const [reviewText, setReviewText] = useState('');
-  const [submitSuccess, setSubmitSuccess] = useState(false); // New state for success message
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [movieTitles, setMovieTitles] = useState([]);
+
+  useEffect(() => {
+    const fetchMovieTitles = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/movies');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setMovieTitles(data);
+      } catch (error) {
+        console.error('Error fetching movie titles:', error.message);
+      }
+    };
+
+    fetchMovieTitles();
+  }, []);
 
   const handleStarClick = (starValue) => {
     setRating(starValue);
@@ -33,18 +52,36 @@ const Rating = ({ initialRating, onChange }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate an API call
-    console.log('Submitting review...');
-    setTimeout(() => {
+
+    // Simulate an API call to submit the review
+    try {
+      const response = await fetch('http://127.0.0.1:5000/submitReview', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          movieTitle,
+          rating,
+          reviewText,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
       console.log('Review submitted successfully!');
-      setSubmitSuccess(true); // Set success state to true
+      setSubmitSuccess(true);
       // Reset form fields
       setMovieTitle('');
       setRating(0);
       setReviewText('');
-    }, 1000);
+    } catch (error) {
+      console.error('Error submitting review:', error.message);
+    }
   };
 
   return (
@@ -52,31 +89,49 @@ const Rating = ({ initialRating, onChange }) => {
       {submitSuccess && <p className="success-message">Review submitted successfully!</p>}
       <p>Selected Stars: {count}</p>
       <p>Rating: {getRatingLabel()}</p>
-      {[1, 2, 3, 4, 5].map((star) => (
-        <span
-          key={star}
-          onClick={() => handleStarClick(star)}
-          style={{ cursor: 'pointer', color: star <= rating ? 'gold' : 'gray' }}
-        >
-          <Star />
-        </span>
-      ))}
+      <Dropdown
+  selectedValue={movieTitle}
+  onSelect={(selectedMovie) => setMovieTitle(selectedMovie)}
+  options={movieTitles.map((movie) => ({
+    value: movie.id,
+    label: movie.title
+  }))}
+/>
+
+      
+      <Star
+        size="24"
+        onClick={() => handleStarClick(1)}
+        color={rating >= 1 ? '#FFD700' : '#A0A0A0'}
+      />
+      <Star
+        size="24"
+        onClick={() => handleStarClick(2)}
+        color={rating >= 2 ? '#FFD700' : '#A0A0A0'}
+      />
+      <Star
+        size="24"
+        onClick={() => handleStarClick(3)}
+        color={rating >= 3 ? '#FFD700' : '#A0A0A0'}
+      />
+      <Star
+        size="24"
+        onClick={() => handleStarClick(4)}
+        color={rating >= 4 ? '#FFD700' : '#A0A0A0'}
+      />
+      <Star
+        size="24"
+        onClick={() => handleStarClick(5)}
+        color={rating === 5 ? '#FFD700' : '#A0A0A0'}
+      />
       <form onSubmit={handleSubmit}>
         <label>
-          Movie Title:
-          <input type="text" value={movieTitle} onChange={(e) => setMovieTitle(e.target.value)} />
+          Review Text:
+          <textarea
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+          />
         </label>
-        <br />
-        <label>
-          Your Rating:
-          <input type="number" value={rating} readOnly />
-        </label>
-        <br />
-        <label>
-          Your Review:
-          <textarea value={reviewText} onChange={(e) => setReviewText(e.target.value)} />
-        </label>
-        <br />
         <button type="submit">Submit Review</button>
       </form>
     </div>
