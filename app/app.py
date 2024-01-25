@@ -2,6 +2,7 @@ from flask import Flask, make_response, jsonify, request
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from models import db, Movie, User, Review 
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
@@ -9,6 +10,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 migrate = Migrate(app, db)
+CORS(app)
 
 api = Api(app)
 
@@ -60,6 +62,7 @@ class MovieResourceById(Resource):
                 "title": movie.title,
                 "genre": movie.genre,
                 "release_year": movie.release_year,
+                "image":movie.image,
                 "director": movie.director
             }
 
