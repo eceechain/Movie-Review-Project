@@ -1,0 +1,50 @@
+/* Add your global styles here if needed */
+
+/* Style for the Rating component container */
+div {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 400px;
+  }
+  
+  /* Style for the star rating */
+  span {
+    margin-right: 5px;
+  }
+  
+  /* Style for the review form */
+  form {
+    margin-top: 20px;
+  }
+  
+  /* Style for form input and textarea */
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style for the submit button */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

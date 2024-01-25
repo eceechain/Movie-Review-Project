@@ -1,0 +1,16 @@
+
+
+.dropdown {
+    margin-bottom: 15px;
+  }
+  
+  select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 40px; 
+  }
+  
+  
