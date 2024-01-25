@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star } from 'lucide-react';
-import Dropdown from './Dropdown'; // Assuming the path to the Dropdown component file
+import Dropdown from './Dropdown'; 
 import './Rating.css';
 
 const Rating = ({ initialRating, onChange }) => {
@@ -10,22 +10,30 @@ const Rating = ({ initialRating, onChange }) => {
   const [reviewText, setReviewText] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [movieTitles, setMovieTitles] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState('');
 
   useEffect(() => {
-    const fetchMovieTitles = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/movies');
-        if (!response.ok) {
+        const moviesResponse = await fetch('http://127.0.0.1:5000/movies');
+        const usersResponse = await fetch('http://127.0.0.1:5000/users');
+
+        if (!moviesResponse.ok || !usersResponse.ok) {
           throw new Error('Network response was not ok');
         }
-        const data = await response.json();
-        setMovieTitles(data);
+
+        const moviesData = await moviesResponse.json();
+        const usersData = await usersResponse.json();
+
+        setMovieTitles(moviesData);
+        setUsers(usersData);
       } catch (error) {
-        console.error('Error fetching movie titles:', error.message);
+        console.error('Error fetching data:', error.message);
       }
     };
 
-    fetchMovieTitles();
+    fetchData();
   }, []);
 
   const handleStarClick = (starValue) => {
@@ -55,7 +63,6 @@ const Rating = ({ initialRating, onChange }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simulate an API call to submit the review
     try {
       const response = await fetch('http://127.0.0.1:5000/submitReview', {
         method: 'POST',
@@ -66,6 +73,7 @@ const Rating = ({ initialRating, onChange }) => {
           movieTitle,
           rating,
           reviewText,
+          selectedUser,
         }),
       });
 
@@ -75,10 +83,11 @@ const Rating = ({ initialRating, onChange }) => {
 
       console.log('Review submitted successfully!');
       setSubmitSuccess(true);
-      // Reset form fields
+
       setMovieTitle('');
       setRating(0);
       setReviewText('');
+      setSelectedUser('');
     } catch (error) {
       console.error('Error submitting review:', error.message);
     }
@@ -90,15 +99,23 @@ const Rating = ({ initialRating, onChange }) => {
       <p>Selected Stars: {count}</p>
       <p>Rating: {getRatingLabel()}</p>
       <Dropdown
-  selectedValue={movieTitle}
-  onSelect={(selectedMovie) => setMovieTitle(selectedMovie)}
-  options={movieTitles.map((movie) => ({
-    value: movie.id,
-    label: movie.title
-  }))}
-/>
+        selectedValue={movieTitle}
+        onSelect={(selectedMovie) => setMovieTitle(selectedMovie)}
+        options={movieTitles.map((movie) => ({
+          value: movie.id,
+          label: movie.title,
+        }))}
+      />
 
-      
+      <Dropdown
+        selectedValue={selectedUser}
+        onSelect={(user) => setSelectedUser(user)}
+        options={users.map((user) => ({
+          value: user.id,
+          label: user.username,
+        }))}
+      />
+
       <Star
         size="24"
         onClick={() => handleStarClick(1)}
