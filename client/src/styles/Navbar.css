@@ -1,79 +1,71 @@
 /* Navbar.css */
 
 nav {
-    background: linear-gradient(to right, #ff5733, #d92e00); /* Gradient dark orange color */
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logo img {
-    width: 50px; /* Adjust the width of the logo */
-  }
-  
-  .nav-links {
-    display: flex;
-  }
-  
-  .nav-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 10px;
-    font-size: 16px;
-  }
-  
-  .nav-links a:hover {
-    text-decoration: underline;
-  }
-  
-  .dropdown {
-    position: relative;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #333;
-    min-width: 160px;
-    z-index: 1;
-    border-radius: 5px;
-    top: 100%;
-    left: 0;
-  }
-  
-  .dropdown-content a {
-    color: #fff;
-    padding: 10px 15px;
-    display: block;
-    text-decoration: none;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .search input[type="text"] {
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    margin-right: 5px;
-  }
-  
-  .search button {
-    padding: 8px 15px;
-    border-radius: 5px;
-    border: none;
-    background-color: #555;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .search button:hover {
-    background-color: #444;
-  }
-  
-  .active {
-    font-weight: bold;
-  }
-  
+  background: linear-gradient(to right, #ff5733, #d92e00); /* Gradient dark orange color */
+  padding: 20px 30px; /* Adjusted padding */
+  display: flex;
+  justify-content: flex-start; /* Float all elements to the left */
+  align-items: center;
+}
+
+.logo img {
+  width: 100px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 50%; /* Make it a circle */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+.nav-links {
+  display: flex;
+  margin-left: auto; /* Move nav links to the right */
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 16px;
+  transition: text-decoration 0.3s ease; /* Added transition for smoother hover effect */
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.search input[type="text"] {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 5px;
+}
+
+.search button {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #555;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Added transition for smoother hover effect */
+}
+
+.search button:hover {
+  background-color: #444;
+}
+
+.active {
+  font-weight: bold;
+}
+
+/* New styles for login link */
+.login a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 16px;
+  transition: text-decoration 0.3s ease; /* Added transition for smoother hover effect */
+}
+
+.login a:hover {
+  text-decoration: underline;
+}

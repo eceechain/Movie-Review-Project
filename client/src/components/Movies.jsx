@@ -43,7 +43,7 @@ function Movie() {
       <p className="movie-release-year">Release Year: {movie.release_year}</p>
       <p className="movie-director">Director: {movie.director}</p>
 
-      <Link to="/review" className="review-link">
+      <Link to="/reviews" className="review-link">
         Write a Review
       </Link>
       

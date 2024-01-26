@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Reviewform from './Reviewform';
+import Searchbar from './Searchbar.jsx';
 import '../styles/Home.css';
 
 function Home() {
@@ -37,6 +38,7 @@ function Home() {
 
   return (
     <div>
+       <Searchbar />
       <div className="review-container">
         <Reviewform />
       </div>

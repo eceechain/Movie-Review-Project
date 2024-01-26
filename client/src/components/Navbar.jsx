@@ -6,15 +6,16 @@ function Navbar() {
   return (
     <nav>
       <div className="logo">
-        <img src="logo.png" alt="Logo" />
+        <img src="https://t3.ftcdn.net/jpg/05/90/75/40/360_F_590754013_CoFRYEcAmLREfB3k8vjzuyStsDbMAnqC.jpg" alt="Logo" />
       </div>
       <div className="nav-links">
         <NavLink to='/' exact>Home</NavLink>
         <NavLink to='/about'>About</NavLink>
-        <NavLink to='/reviews'>Reviews</NavLink> </div>
-      <div className="search">
-        <input type="text" placeholder="Search..." />
-        <button>Search</button>
+        <NavLink to='/reviews'>Reviews</NavLink> 
+      </div>
+      <div className="login">
+        <NavLink to='/login'>Login</NavLink>
+        <NavLink to='/Signup'>Sign up</NavLink>
       </div>
     </nav>
   );
