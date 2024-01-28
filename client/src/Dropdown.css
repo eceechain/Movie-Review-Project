@@ -1,0 +1,34 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Customize the styling of the select element */
+  select {
+    appearance: none; /* Remove default styles on Firefox */
+    -webkit-appearance: none; /* Remove default styles on Chrome and Safari */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Style the arrow icon for the select element */
+  select::-ms-expand {
+    display: none; /* Remove arrow icon on IE and Edge */
+  }
+  
+  /* Customize the styling of the options within the dropdown */
+  option {
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* Style the dropdown options when hovered */
+  option:hover {
+    background-color: #f0f0f0;
+  }

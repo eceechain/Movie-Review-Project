@@ -1,65 +1,158 @@
-import React, { useState } from 'react';
-import './Reviews.css';
+import React, { useState, useEffect } from 'react';
+import { Star } from 'lucide-react';
+import Dropdown from './Dropdown'; 
+import './Revies.css';
 
-const MovieReviewForm = () => {
-  const [formData, setFormData] = useState({
-    movieTitle: '',
-    userRating: '',
-    userReview: '',
-  });
+const Reviews = ({ initialRating, onChange }) => {
+  const [rating, setRating] = useState(initialRating || 0);
+  const [count, setCount] = useState(0);
+  const [movieTitle, setMovieTitle] = useState('');
+  const [reviewText, setReviewText] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [movieTitles, setMovieTitles] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const moviesResponse = await fetch('http://127.0.0.1:5000/movies');
+        const usersResponse = await fetch('http://127.0.0.1:5000/users');
+
+        if (!moviesResponse.ok || !usersResponse.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const moviesData = await moviesResponse.json();
+        const usersData = await usersResponse.json();
+
+        setMovieTitles(moviesData);
+        setUsers(usersData);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleStarClick = (starValue) => {
+    setRating(starValue);
+    setCount(starValue);
+    if (onChange) {
+      onChange(starValue);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const getRatingLabel = () => {
+    switch (rating) {
+      case 1:
+        return 'Good';
+      case 2:
+      case 3:
+        return 'Average';
+      case 4:
+        return 'Very Good';
+      case 5:
+        return 'Excellent';
+      default:
+        return '';
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('Form data submitted:', formData);
+    try {
+      const response = await fetch('http://127.0.0.1:5000/submitReview', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          movieTitle,
+          rating,
+          reviewText,
+          selectedUser,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      console.log('Review submitted successfully!');
+      setSubmitSuccess(true);
+
+      setMovieTitle('');
+      setRating(0);
+      setReviewText('');
+      setSelectedUser('');
+    } catch (error) {
+      console.error('Error submitting review:', error.message);
+    }
   };
 
   return (
     <div>
-      <h2>Movie Review Form</h2>
+      {submitSuccess && <p className="success-message">Review submitted successfully!</p>}
+      <p>Selected Stars: {count}</p>
+      <p>Rating: {getRatingLabel()}</p>
+      <Dropdown
+        selectedValue={movieTitle}
+        onSelect={(selectedMovie) => setMovieTitle(selectedMovie)}
+        options={movieTitles.map((movie) => ({
+          value: movie.id,
+          label: movie.title,
+        }))}
+      />
+
+      <Dropdown
+        selectedValue={selectedUser}
+        onSelect={(user) => setSelectedUser(user)}
+        options={users.map((user) => ({
+          value: user.id,
+          label: user.username,
+        }))}
+      />
+
+      <Star
+        size="24"
+        onClick={() => handleStarClick(1)}
+        color={rating >= 1 ? '#FFD700' : '#A0A0A0'}
+      />
+      <Star
+        size="24"
+        onClick={() => handleStarClick(2)}
+        color={rating >= 2 ? '#FFD700' : '#A0A0A0'}
+      />
+      <Star
+        size="24"
+        onClick={() => handleStarClick(3)}
+        color={rating >= 3 ? '#FFD700' : '#A0A0A0'}
+      />
+      <Star
+        size="24"
+        onClick={() => handleStarClick(4)}
+        color={rating >= 4 ? '#FFD700' : '#A0A0A0'}
+      />
+      <Star
+        size="24"
+        onClick={() => handleStarClick(5)}
+        color={rating === 5 ? '#FFD700' : '#A0A0A0'}
+      />
       <form onSubmit={handleSubmit}>
-        <label htmlFor="movieTitle">Movie Title:</label>
-        <input
-          type="text"
-          id="movieTitle"
-          name="movieTitle"
-          value={formData.movieTitle}
-          onChange={handleChange}
-          required
-        />
-
-        <label htmlFor="userRating">Your Rating (out of 10):</label>
-        <input
-          type="number"
-          id="userRating"
-          name="userRating"
-          min="1"
-          max="10"
-          value={formData.userRating}
-          onChange={handleChange}
-          required
-        />
-
-        <label htmlFor="userReview">Your Review:</label>
-        <textarea
-          id="userReview"
-          name="userReview"
-          value={formData.userReview}
-          onChange={handleChange}
-          required
-        ></textarea>
-
+        <label>
+          Review Text:
+          <textarea
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+          />
+        </label>
         <button type="submit">Submit Review</button>
       </form>
     </div>
   );
 };
 
-export default MovieReviewForm;
+export default Reviews;
