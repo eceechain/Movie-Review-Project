@@ -1,0 +1,63 @@
+.searchbar-container {
+    position: relative; /* Change to fixed positioning */
+    top: 10px; /* Ensure to specify the unit, e.g., px */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999; /* Ensure it's above other content */
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Align items vertically */
+    width: 100%; /* Take full width */
+    background-color: white; /* Set background color */
+    padding: 10px; /* Add padding for better spacing */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  }
+  
+  input[type="text"] {
+    flex: 1; /* Allow the input to grow and take remaining space */
+    padding: 8px;
+    margin-right: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%; /* Take full width */
+    max-width: 1200px; /* Limit maximum width */
+  }
+  
+  button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 8px; /* Add left margin to the button */
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .movie-list {
+    position: absolute; /* Position absolute to keep it below the search bar */
+    top: 100%; /* Align to the bottom of the search bar */
+    left: 0;
+    width: 100%; /* Take full width */
+    background-color: rgba(255, 255, 255, 0.9); /* Set background color with transparency */
+    border: 1px solid #ccc;
+    border-top: none; /* Remove top border */
+    border-radius: 0 0 4px 4px; /* Add border radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    z-index: 998; /* Ensure it's below the search bar */
+    transition: background-color 0.3s ease; /* Add transition effect */
+  }
+  
+  .movie-list li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .movie-list li:hover {
+    background-color: #f4f4f4;
+  }
+   
