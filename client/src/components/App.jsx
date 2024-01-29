@@ -7,6 +7,7 @@ import Navbar  from './Navbar.jsx';
 import Reviews from './Reviews.jsx';
 import Signup from './Signup';
 import Login from './Login.jsx';
+import Footer from './Footer.jsx';
 import '../styles/App.css'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/login'element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
+      <Footer />
     </div>
     </Router>
   )

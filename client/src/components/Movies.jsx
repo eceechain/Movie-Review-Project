@@ -1,3 +1,4 @@
+// Movie.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import '../styles/Movie.css';
@@ -82,7 +83,8 @@ function Movie() {
           Add Review
         </button>
         
-        <Link to="/" className="link-button">
+        {/* Link to the home page */}
+        <Link to="/home" className="link-button">
           Back 
         </Link>
       </div>
