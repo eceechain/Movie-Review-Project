@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/Search.css'; // Import CSS file for styling
 
-function Searchbar({ onSelectMovie }) {
+function Searchbar() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [showMovies, setShowMovies] = useState(false);
 
@@ -12,7 +11,7 @@ function Searchbar({ onSelectMovie }) {
     async function fetchMovies() {
       try {
         const response = await axios.get('http://127.0.0.1:5555/movies');
-        setMovies(response.data);
+        setFilteredMovies(response.data); // Initially set all movies as filtered movies
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
@@ -22,12 +21,12 @@ function Searchbar({ onSelectMovie }) {
 
   useEffect(() => {
     setFilteredMovies(
-      movies.filter(movie =>
+      filteredMovies.filter(movie =>
         movie.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
     );
     setShowMovies(searchQuery !== '');
-  }, [searchQuery, movies]);
+  }, [searchQuery]);
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -38,9 +37,7 @@ function Searchbar({ onSelectMovie }) {
   };
 
   const handleSelectMovie = (selectedMovie) => {
-    onSelectMovie(selectedMovie);
-    setSearchQuery('');
-    setShowMovies(false);
+    window.location.href = `/movies/${selectedMovie.id}`; // Navigate to the movie details page
   };
 
   return (

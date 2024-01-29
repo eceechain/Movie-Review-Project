@@ -20,16 +20,19 @@ nav {
   margin-left: auto; /* Move nav links to the right */
 }
 
-.nav-links a {
+.nav-links a, .nav-links button, .login a {
   color: #fff;
   text-decoration: none;
   margin: 0 10px;
   font-size: 16px;
-  transition: text-decoration 0.3s ease; /* Added transition for smoother hover effect */
+  border: 1px solid transparent; /* Add border */
+  border-radius: 5px; /* Add border radius */
+  padding: 8px 15px; /* Add padding */
+  transition: border-color 0.3s ease; /* Add transition for smoother hover effect */
 }
 
-.nav-links a:hover {
-  text-decoration: underline;
+.nav-links a:hover, .nav-links button:hover, .login a:hover {
+  border-color: #ff7f00; /* Orange border on hover */
 }
 
 .search input[type="text"] {
@@ -50,22 +53,9 @@ nav {
 }
 
 .search button:hover {
-  background-color: #444;
+  background-color: #ff3333; /* Red color on hover */
 }
 
 .active {
   font-weight: bold;
-}
-
-/* New styles for login link */
-.login a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 10px;
-  font-size: 16px;
-  transition: text-decoration 0.3s ease; /* Added transition for smoother hover effect */
-}
-
-.login a:hover {
-  text-decoration: underline;
 }

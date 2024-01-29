@@ -2,15 +2,15 @@ from flask import Flask, make_response, jsonify, request
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from models import db, Movie, User, Review 
-from flask_cors import CORS
+from flask_cors import CORS 
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 migrate = Migrate(app, db)
-CORS(app)
 
 api = Api(app)
 
@@ -38,7 +38,7 @@ class MovieResource(Resource):
                 "title": movie.title, 
                 "genre": movie.genre,
                 "release_year": movie.release_year, 
-                "image":movie.image,
+                "image": movie.image,
                 "director": movie.director
             }
             movies.append(movie_dict)
@@ -60,9 +60,9 @@ class MovieResourceById(Resource):
             movie_dict = {
                 "id": movie.id,
                 "title": movie.title,
+                "image": movie.image,
                 "genre": movie.genre,
                 "release_year": movie.release_year,
-                "image":movie.image,
                 "director": movie.director
             }
 
@@ -98,6 +98,44 @@ class UserResource(Resource):
             jsonify(users),
             200
         )
+
+        return response
+
+    def post(self):
+        data = request.get_json()
+        new_user = User(
+            username=data.get('username'),
+            bio=data.get('bio'),
+            is_active=data.get('is_active')
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        response = make_response(
+            jsonify({"message": "User added successfully"}),
+            201
+        )
+
+        return response
+
+    def delete(self):
+        data = request.get_json()
+        user_id = data.get('id')
+        user = User.query.get(user_id)
+
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            response = make_response(
+                jsonify({"message": "User deleted successfully"}),
+                200
+            )
+        else:
+            response = make_response(
+                jsonify({"error": "User not found"}),
+                404
+            )
 
         return response
 
@@ -168,7 +206,55 @@ class ReviewResource(Resource):
 
         return response
 
+    def delete(self):
+        data = request.get_json()
+        review_id = data.get('id')
+        review = Review.query.get(review_id)
+
+        if review:
+            db.session.delete(review)
+            db.session.commit()
+            response = make_response(
+                jsonify({"message": "Review deleted successfully"}),
+                200
+            )
+        else:
+            response = make_response(
+                jsonify({"error": "Review not found"}),
+                404
+            )
+
+        return response
+
 api.add_resource(ReviewResource, '/reviews')
+
+class ReviewResourceById(Resource):
+    def get(self, id):
+        review = Review.query.get(id)
+
+        if review:
+            review_dict = {
+                "id": review.id,
+                "content": review.content,
+                "comments": review.comments,
+                "rating": review.rating
+            }
+
+            response = make_response(
+                jsonify(review_dict),
+                200
+            )
+
+            return response
+        else:
+            response = make_response(
+                jsonify({"error": "Review not found"}),
+                404
+            )
+
+            return response
+
+api.add_resource(ReviewResourceById, '/reviews/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

@@ -1,1 +1,27 @@
+/* App.css */
 
+/* Apply black background color to the root element */
+body {
+    background-color: #000;
+    color: #fff; /* Set text color to white */
+  }
+  
+  /* Style the Navbar */
+  .Navbar {
+    background-color: #333; /* Set Navbar background color */
+    color: #fff; /* Set text color to white */
+    padding: 10px 20px;
+  }
+  
+  /* Add more specific styling for Navbar links if needed */
+  .Navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  
+  /* Add more specific styling for active Navbar links if needed */
+  .Navbar a.active {
+    font-weight: bold;
+  }
+  

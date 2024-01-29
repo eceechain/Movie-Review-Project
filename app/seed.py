@@ -44,7 +44,8 @@ def seed_movies():
             {"title": "Breaking Bad", "genre": "Adventure", "release_year": 2015, "director": "Alejandro G. Iñárritu", "image": "https://m.media-amazon.com/images/M/MV5BYmQ4YWMxYjUtNjZmYi00MDQ1LWFjMjMtNjA5ZDdiYjdiODU5XkEyXkFqcGdeQXVyMTMzNDExODE5._V1_SX300.jpg"},
             {"title": "Suits", "genre": "Musical", "release_year": 2016, "director": "Damien Chazelle", "image": "https://m.media-amazon.com/images/M/MV5BNmVmMmM5ZmItZDg0OC00NTFiLWIxNzctZjNmYTY5OTU3ZWU3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"},
             {"title": "Love, Sex and 30 Candles", "genre": "Fantasy", "release_year": 2017, "director": "Guillermo del Toro", "image": "https://m.media-amazon.com/images/M/MV5BMTVlYWY2OTgtN2VjYS00MWRjLWJiMDEtZmI4NjI1YjAzNjYxXkEyXkFqcGdeQXVyMTQ4MDU2Mzg@._V1_SX300.jpg"},
-        
+            {"title": "Mr.Bones", "genre": "Drama", "release_year": 2001, "director": "David Fincher", "image": "https://m.media-amazon.com/images/M/MV5BNTVhMjQ4NzItODhjZC00MGUyLThmMzQtYTFjZjI2Mzg1OWUzXkEyXkFqcGdeQXVyMTY5Nzc4MDY@._V1_SX300.jpg"},
+            {"title": "Everything, Everything", "genre": "Drama", "release_year": 2017, "director": "David Fincher", "image": "https://m.media-amazon.com/images/M/MV5BMjAzMTE1NzQxNF5BMl5BanBnXkFtZTgwNjcwODY3MTI@._V1_SX300.jpg" },
         ]
 
         movies = []
@@ -54,13 +55,17 @@ def seed_movies():
 
         # Seed Users
         users_data = [
-            {"username": "Cinephile123", "bio": "Passionate about movies", "is_active": True},
-            {"username": "PopcornFanatic", "bio": "Loves watching films", "is_active": True},
-            {"username": "MovieBuff", "bio": "Enjoys exploring different genres", "is_active": True},
-            {"username": "FilmGeek", "bio": "Obsessed with cinema", "is_active": True},
-            {"username": "CasualViewer", "bio": "Enjoys movies on weekends", "is_active": True},
-            
-        ]
+            {"username": "Cinephile123", "email": "cinephile@example.com", "password": "password123", "bio": "Passionate about movies", "is_active": True},
+            {"username": "PopcornFanatic", "email": "popcornfanatic@example.com", "password": "password456", "bio": "Loves watching films", "is_active": True},
+            {"username": "MovieBuff", "email": "moviebuff@example.com", "password": "password789", "bio": "Enjoys exploring different genres", "is_active": True},
+            {"username": "FilmGeek", "email": "filmgeek@example.com", "password": "password101112", "bio": "Obsessed with cinema", "is_active": True},
+            {"username": "CasualViewer", "email": "casualviewer@example.com", "password": "password131415", "bio": "Enjoys movies on weekends", "is_active": True},
+            {"username": "ScreenSpectator", "email": "screenspectator@example.com", "password": "password161718", "bio": "Always in search of hidden gems", "is_active": True},
+            {"username": "MovieManiac", "email": "moviemaniac@example.com", "password": "password192021", "bio": "Devoted to all things cinema", "is_active": True},
+            {"username": "FilmFan", "email": "filmfan@example.com", "password": "password222324", "bio": "Dedicated to classic movies", "is_active": True},
+            {"username": "SilverScreenAddict", "email": "silverscreenaddict@example.com", "password": "password252627", "bio": "Addicted to the big screen experience", "is_active": True},
+            {"username": "MovieMaven", "email": "moviemaven@example.com", "password": "password282930", "bio": "Expert in all things related to film", "is_active": True}
+                ]
 
         for user_data in users_data:
             user = User(**user_data)
@@ -68,7 +73,7 @@ def seed_movies():
 
         # Seed Reviews
         reviews_data = [
-            {"content": "Mind-blowing concept and visuals!", "comments": "A must-watch for sci-fi fans.", "rating": 5, "movie_id": 1, "user_id": 1},
+           {"content": "Mind-blowing concept and visuals!", "comments": "A must-watch for sci-fi fans.", "rating": 5, "movie_id": 1, "user_id": 1},
             {"content": "Heath Ledger's Joker steals the show.", "comments": "Nolan's masterpiece.", "rating": 5, "movie_id": 2, "user_id": 2},
             {"content": "Emotional rollercoaster with great performances.", "comments": "Tom Hanks is exceptional.", "rating": 4, "movie_id": 3, "user_id": 3},
             {"content": "Classic prison drama with a twist.", "comments": "Tim Robbins nailed it.", "rating": 4, "movie_id": 4, "user_id": 4},
@@ -78,15 +83,13 @@ def seed_movies():
             {"content": "Quentin Tarantino's unique take on history.", "comments": "Brilliant storytelling and performances.", "rating": 5, "movie_id": 8, "user_id": 3},
             {"content": "A cinematic masterpiece with stellar performances.", "comments": "Marlon Brando's iconic role.", "rating": 5, "movie_id": 9, "user_id": 4},
             {"content": "Fantasy adventure with breathtaking visuals.", "comments": "Captivating from start to finish.", "rating": 5, "movie_id": 10, "user_id": 5},
-            
-            # ...
         ]
 
         for review_data in reviews_data:
             review = Review(**review_data)
             db.session.add(review)
 
-        db.session.add_all(movies)
+        db.session.add_all(movies)  # Moved outside the loop
         db.session.commit()
 
     print("Movie seeding completed.")

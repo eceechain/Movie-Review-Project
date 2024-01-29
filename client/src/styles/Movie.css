@@ -1,68 +1,160 @@
+/* Movie.css */
+
+/* Set background color for the body */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+}
+
+/* Center the movie content vertically and horizontally */
 .movie-container {
-    max-width: 1000px;
-    max-height: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 6px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .movie-title {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #333;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .movie-image {
-    max-width: 100%;
-    height: 100%;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .movie-description,
-  .movie-genre,
-  .movie-release-year,
-  .movie-director {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #000000;
-    font-family: 'Open Sans', sans-serif;
-  }
-  
-  .link-container {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .home-link {
-    color: #007bff;
-    float: left;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .home-link:hover {
-    text-decoration: underline;
-  }
-  
-  .review-link {
-    color: #007bff;
-    padding-right: 150px;
-    float: right;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .review-link:hover {
-    text-decoration: underline;
-  }
-  
+  position: relative; /* Add position relative */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  color: #fff;
+  border: 2px solid #fff; /* Add border around the content */
+  border-radius: 10px; /* Add border radius */
+  padding: 20px; /* Add padding inside the border */
+  max-width: 800px; /* Limit maximum width of the container */
+  margin: 20px auto; /* Center` horizontally and add some margin */
+  background: linear-gradient(135deg, #ff5733, #ffcc33); /* Fiery gradient background */
+}
+
+/* Styling for hover effect on movie container */
+.movie-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* Send pseudo-element behind the content */
+  border-radius: 10px; /* Match border-radius of the container */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Add glow effect */
+  opacity: 0; /* Initially invisible */
+  transition: opacity 0.3s ease; /* Add transition for hover effect */
+}
+
+.movie-container:hover::after {
+  opacity: 1; /* Make pseudo-element visible on hover */
+}
+
+/* Styling for the movie title */
+.movie-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Styling for the movie image */
+.movie-image {
+  max-width: 100%;
+  max-height: 80vh; /* Limit image height to 80% of viewport height */
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Styling for movie details */
+.movie-genre,
+.movie-release-year,
+.movie-director {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Styling for the link container */
+.link-container {
+  display: flex;
+  flex-direction: column; /* Align links vertically */
+  align-items: center; /* Center links horizontally */
+  margin-top: 20px;
+}
+
+/* Styling for the links */
+.link-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff6347; /* Red gradient background */
+  background-image: linear-gradient(135deg, #ff6347, #ff0000); /* Red gradient background */
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 10px; /* Add margin between links */
+  transition: box-shadow 0.3s ease; /* Add transition for hover effect */
+}
+
+/* Styling for hover effect on links */
+.link-button:hover {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Add glow effect on hover */
+}
+
+/* Styling for the review form container */
+.review-form-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.review-form-container h3 {
+  color: #fff;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.review-form-container label {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.review-form-container textarea,
+.review-form-container input[type="number"],
+.review-form-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.review-form-container textarea {
+  resize: vertical; /* Allow vertical resizing */
+}
+
+.review-form-container div {
+  text-align: right;
+}
+
+.review-form-container .submit-button,
+.review-form-container .close-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  margin-left: 10px;
+}
+
+.review-form-container .submit-button:hover,
+.review-form-container .close-button:hover {
+  background-color: #0056b3;
+}

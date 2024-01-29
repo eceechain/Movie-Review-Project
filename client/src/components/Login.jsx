@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import '../styles/Login.css';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can handle the login logic here, such as sending the username and password to a server for authentication
-    console.log('Submitted:', { username, password });
+    setIsLoading(true); // Start the loading animation
 
-    // Display an alert message upon successful login
-    window.alert("You've been logged in");
+    setTimeout(() => {
+      // Simulate a delay for the login process
+      console.log('Submitted:', { username, password });
 
-    // Reload the page
-    window.location.reload();
+      // Redirect to the home page after the delay
+      window.location.href = '/home'; // Replace '/home' with the desired URL
+    }, 2000); // 2 seconds delay for simulation
   };
 
   return (
@@ -42,11 +44,17 @@ function Login() {
             className="input"
           />
         </div>
-        <button type="submit" className="button">Login</button>
+        {!isLoading ? (
+          <button type="submit" className="button">Login</button>
+        ) : (
+          <div className="loading-animation"></div>
+        )}
       </form>
-      <div className="orSignup">
-        <p>Or <Link to="/signup">sign up</Link></p> {/* Use Link component instead of <a> */}
-      </div>
+      {!isLoading && (
+        <div className="orSignup">
+          <p>Or <Link to="/signup">sign up</Link></p>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,133 +1,63 @@
-/* Movie Card Styles */
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .card {
-    width: 200px;
-    margin: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
-  }
-  
-  .card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  .card-body h2 {
-    margin-top: 0;
-    font-size: 1.5rem;
-    color: #333; /* Change title color */
-  }
-  
-  .card-body p {
-    margin: 5px 0;
-    color: #666; /* Change text color */
-  }
-  
-  .card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f0f0f0;
-  }
-  
-  .card-footer button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .card-footer button:hover {
-    background-color: #0056b3;
-  }
-  
-  .card-footer .rating {
-    display: flex;
-    align-items: center;
-  }
-  
-  .card-footer .rating span {
-    margin-right: 5px;
-  }
-  
-  .card-footer .rating svg {
-    fill: gold;
-  }
-  
-  /* Additional Hover Effect */
-  .card:hover .card-footer {
-    background-color: #ddd; /* Change footer background on hover */
-  }
-  
-  .card:hover .card-footer button {
-    background-color: #555; /* Change button background on hover */
-  }
-  
-  .card:hover .card-footer button:hover {
-    background-color: #333; /* Change button background on hover */
-  }
+/* Home.css */
 
-  /* Home.css */
-
-/* Full Width Image */
 .Image {
-    padding: 50px; /* Add padding around the image */
-  }
-  
-  .Image img {
-    max-width: 60%; /* Ensure the image does not exceed its container */
-    display: block;
-    object-fit: cover; /* Ensure the image covers the entire container */
-    border-radius: 8px; /* Add border-radius for rounded corners */
-    transition: transform 0.3s ease; /* Add transition for hover effect */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box-shadow for depth */
-  }
-  
-  .Image img:hover {
-    transform: scale(1.05); /* Scale up the image on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow effect on hover */
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
+.card {
+  margin: 10px;
+  width: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative; /* Added for overlay */
+}
 
-  .movie-details-button {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: #007bff;
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px; /* Match card border-radius */
+  transition: transform 0.3s ease; /* Added for hover effect */
+}
+
+.card:hover img {
+  transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)); /* Gradient overlay */
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease; /* Added for fade-in effect */
+}
+
+.card:hover::before {
+  opacity: 1; /* Show overlay on hover */
+}
+
+.card-content {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
   color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
 }
 
-.movie-details-button:hover {
-  background-color: #0056b3;
+.card-title {
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
-.review-container {
-    float: right;
-  }
-  
-  
- 
+.card-genre {
+  font-size: 12px;
+}
+
+.card:hover .card-content {
+  transform: translateY(-20px); /* Move content up on hover */
+}

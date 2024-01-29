@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Reviewform from './Reviewform';
 import Searchbar from './Searchbar.jsx';
 import '../styles/Home.css';
 
@@ -40,28 +39,15 @@ function Home() {
     <div>
        <Searchbar />
       <div className="review-container">
-        <Reviewform />
       </div>
       <div className="Image">
-        <img src="https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg" alt="Full Width Image" />
-      </div>
-      <div className="card-container">
         {movies.map(movie => (
-          <div key={movie.id} className="card">
+          <Link to={`/movies/${movie.id}`} key={movie.id}>
             <img src={movie.image} alt={movie.title} />
-            <div className="card-body">
-              <h2>{movie.title}</h2>
-              <p><strong>Genre:</strong> {movie.genre}</p>
-              <p><strong>Release Year:</strong> {movie.release_year}</p>
-              <p><strong>Director:</strong> {movie.director}</p>
-              <Link to={`/movies/${movie.id}`} className="movie-details-button">
-                Movie Details
-              </Link>
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
-    </div>
+          </div>
   );
 }
 

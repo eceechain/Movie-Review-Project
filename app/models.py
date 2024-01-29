@@ -21,6 +21,8 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True)
+    email = db.Column(db.String(255), unique=True)  # Make the email column unique
+    password = db.Column(db.String(255))
     bio = db.Column(db.Text)
     is_active = db.Column(db.Boolean, default=True)
 
@@ -32,11 +34,10 @@ class Review(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
-    comments = db.Column(db.Text)  # Corrected line here
+    comments = db.Column(db.Text)
     rating = db.Column(db.Integer)
 
     # Relationship
-  # Review model
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id', name='fk_review_movie_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', name='fk_review_user_id'))
 
